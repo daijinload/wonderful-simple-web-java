@@ -23,6 +23,5 @@
 hs_err_pid*
 
 # my add files
-#target
-#nb-configuration.xml
-
+target
+nb-configuration.xml
