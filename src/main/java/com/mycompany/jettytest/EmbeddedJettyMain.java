@@ -9,8 +9,11 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
 /**
- *
- * @author hashimoto
+ * メインクラス（普通にこの）
+ * 
+ * テスト動作時は、下記curlを叩く
+ * 
+ * curl -v http://localhost:7070/example/
  */
 public class EmbeddedJettyMain {
 
