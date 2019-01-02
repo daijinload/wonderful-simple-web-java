@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/wonderful-simple-web-java.iml" filepath="$PROJECT_DIR$/.idea/wonderful-simple-web-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wonderful-simple-web-java.main.iml" filepath="$PROJECT_DIR$/.idea/modules/wonderful-simple-web-java.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wonderful-simple-web-java.test.iml" filepath="$PROJECT_DIR$/.idea/modules/wonderful-simple-web-java.test.iml" />
     </modules>
   </component>
 </project>
