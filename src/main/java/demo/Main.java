@@ -6,6 +6,7 @@ import java.security.ProtectionDomain;
 import org.eclipse.jetty.webapp.*;
 import org.eclipse.jetty.server.Server;
 
+
 public class Main {
     public static void main(String[] args) throws Exception {
 
@@ -30,7 +31,7 @@ public class Main {
 //
 //        war.setConfigurations(configurations);
 
-        Server server = new Server(7070);
+        Server server = new Server(8080);
         server.setHandler(war);
         server.start();
         server.join();

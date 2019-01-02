@@ -1,0 +1,28 @@
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'org.eclipse.jetty:jetty-webapp:9.4.14.v20181114'
+    providedCompile 'org.eclipse.jetty:jetty-annotations:9.4.14.v20181114'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.1'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
+}
+
+war {
+    baseName = 'jetty-sample'
+
+    from {
+        configurations.providedCompile.collect {
+            it.isDirectory() ? it : project.zipTree(it)
+        }
+    }
+    from fileTree(dir: 'build/classes/java/main', include: '**/Main.class')
+
+    manifest.attributes('Main-Class': 'demo.Main')
+}
+
+//mainClassName = 'demo.App'
