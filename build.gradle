@@ -1,4 +1,5 @@
 apply plugin: 'war'
+apply plugin: 'idea'
 
 repositories {
     mavenCentral()
@@ -15,12 +16,15 @@ dependencies {
 sourceSets {
     main {
         //if you truly want to override the defaults:
+        output.resourcesDir = file('src/main/webapp/WEB-INF/resources')
+        // Compiled Java classes should use this directory
+        java.outputDir = file('src/main/webapp/WEB-INF/classes')
+    }
+    test {
+        //if you truly want to override the defaults:
         output.resourcesDir = file('src/test/webapp/WEB-INF/resources')
         // Compiled Java classes should use this directory
         java.outputDir = file('src/test/webapp/WEB-INF/classes')
-
-//        output.classes 'src/test/webapp/WEB-INF/classes'
-//        output.resourcesDir 'src/test/webapp/WEB-INF/resources'
     }
 }
 
@@ -34,7 +38,8 @@ war {
     }
     from fileTree(dir: 'build/classes/java/main', include: '**/Main.class')
 
-    manifest.attributes('Main-Class': 'demo.Main')
+    manifest.attributes('Main-Class': 'Main')
 }
 
 //mainClassName = 'demo.App'
+
