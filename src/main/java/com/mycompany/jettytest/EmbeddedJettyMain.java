@@ -22,6 +22,8 @@ public class EmbeddedJettyMain {
         ServletContextHandler handler = new ServletContextHandler(server, "/example");
         handler.addServlet(ExampleServlet.class, "/");
         server.start();
+        
+        
     }
 
 }
