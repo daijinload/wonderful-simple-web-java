@@ -12,6 +12,18 @@ dependencies {
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
 }
 
+sourceSets {
+    main {
+        //if you truly want to override the defaults:
+        output.resourcesDir = file('src/test/webapp/WEB-INF/resources')
+        // Compiled Java classes should use this directory
+        java.outputDir = file('src/test/webapp/WEB-INF/classes')
+
+//        output.classes 'src/test/webapp/WEB-INF/classes'
+//        output.resourcesDir 'src/test/webapp/WEB-INF/resources'
+    }
+}
+
 war {
     baseName = 'jetty-sample'
 

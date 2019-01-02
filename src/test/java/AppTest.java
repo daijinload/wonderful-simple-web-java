@@ -3,8 +3,13 @@
  */
 
 import demo.HelloServlet;
+import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,10 +24,17 @@ public class AppTest {
     public void test() throws Exception {
         Server server = new Server(8080);
 
-        ServletHandler handler = new ServletHandler();
-        handler.addServletWithMapping(HelloServlet.class, "/hello");
+        WebAppContext webapp = new WebAppContext();
+        webapp.setContextPath("/");
+        webapp.setWar("src/test/webapp");
 
-        server.setHandler(handler);
+        webapp.setConfigurations(new Configuration[]{
+                new WebXmlConfiguration(),
+                new AnnotationConfiguration(),
+                new WebInfConfiguration()
+        });
+
+        server.setHandler(webapp);
 
         server.start();
 
@@ -31,6 +43,12 @@ public class AppTest {
             Assertions.assertEquals(reader.readLine(), "Hello Servlet!!");
         }
         conn.disconnect();
+
+        HttpURLConnection connPlainText = (HttpURLConnection) URI.create("http://localhost:8080/text-file.txt").toURL().openConnection();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connPlainText.getInputStream(), StandardCharsets.UTF_8))) {
+            Assertions.assertEquals(reader.readLine(), "Hello Jetty!!");
+        }
+        connPlainText.disconnect();
 
         server.stop();
     }
