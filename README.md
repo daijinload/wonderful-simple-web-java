@@ -1,3 +1,10 @@
 # wonderful-simple-web-java
 
-aaa
+テストプロジェクトだょ
+
+* Java11
+* Jetty
+
+いったん、これだけ。
+
+ある程度、実験終わったら、テストとかも入れてく
