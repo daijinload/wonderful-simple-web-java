@@ -1,10 +1,11 @@
 package com.gmail.daijinload;
 
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
-import org.eclipse.jetty.plus.webapp.EnvConfiguration;
-import org.eclipse.jetty.plus.webapp.PlusConfiguration;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.*;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +20,12 @@ public class AppTest {
 
     @Test
     public void test() throws Exception {
-        Server server = new Server(8081);
 
-        WebAppContext webapp = new WebAppContext();
-        webapp.setContextPath("/");
-        webapp.setWar("src/test/webapp");
+        WebAppContext context = new WebAppContext();
+        context.setContextPath("/");
+        context.setWar("src/test/webapp");
 
-        webapp.setConfigurations(new Configuration[]{
+        context.setConfigurations(new Configuration[]{
                 new WebXmlConfiguration(),
                 new AnnotationConfiguration(),
                 new WebInfConfiguration()
@@ -41,8 +41,8 @@ public class AppTest {
 //            new JettyWebXmlConfiguration()
 //        });
 
-        server.setHandler(webapp);
-
+        Server server = new Server(8081);
+        server.setHandler(context);
         server.start();
         //server.join();
 
@@ -64,6 +64,3 @@ public class AppTest {
         return result;
     }
 }
-
-
-
