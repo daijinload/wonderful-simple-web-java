@@ -19,7 +19,7 @@ public class Main implements AutoCloseable, Runnable {
             .getCodeSource().getLocation();
 
     private static Server server = null;
-    private static WebAppContext context = null;
+//    private static WebAppContext context = null;
 
     public static void main(String[] args) throws Exception {
         // web.xmlはダミーでおいてあるだけで、空っぽのファイル
@@ -44,7 +44,7 @@ public class Main implements AutoCloseable, Runnable {
                 new JettyWebXmlConfiguration()
         };
 
-        context = new WebAppContext();
+        WebAppContext context = new WebAppContext();
         context.setWar(war);
         context.setContextPath("/");
         if (!warFile.isPresent()) {
@@ -53,11 +53,11 @@ public class Main implements AutoCloseable, Runnable {
                             Arrays.asList(Resource.newResource(MAIN_URL)));
         }
         context.setConfigurations(configurations);
+        server.setHandler(context);
     }
 
     @Override
     public void run() {
-        server.setHandler(context);
         try {
             server.start();
             server.join();

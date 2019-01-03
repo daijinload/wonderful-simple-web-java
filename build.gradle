@@ -33,12 +33,6 @@ tasks.withType(JavaCompile) {
 }
 
 sourceSets {
-//    main {
-//        //if you truly want to override the defaults:
-//        output.resourcesDir = file('src/main/webapp/WEB-INF/resources')
-//        // Compiled Java classes should use this directory
-//        java.outputDir = file('src/main/webapp/WEB-INF/classes')
-//    }
     test {
         //if you truly want to override the defaults:
         output.resourcesDir = file('src/test/webapp/WEB-INF/resources')
@@ -54,6 +48,10 @@ javadoc {
 
 test {
     classpath += configurations.jetty
+    testLogging {
+        exceptionFormat 'full'
+        events 'started', 'skipped', 'passed', 'failed'
+    }
 }
 
 idea {

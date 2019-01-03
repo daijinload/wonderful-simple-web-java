@@ -19,38 +19,37 @@ public class AppTest {
 
     @Test
     public void test() throws Exception {
-        Server server = new Server(8080);
+        Server server = new Server(8081);
 
         WebAppContext webapp = new WebAppContext();
         webapp.setContextPath("/");
         webapp.setWar("src/test/webapp");
 
-//        webapp.setConfigurations(new Configuration[]{
-//                new WebXmlConfiguration(),
-//                new AnnotationConfiguration(),
-//                new WebInfConfiguration()
-//        });
-
         webapp.setConfigurations(new Configuration[]{
-            new AnnotationConfiguration(),
-            new WebInfConfiguration(),
-            new WebXmlConfiguration(),
-            new MetaInfConfiguration(),
-            new FragmentConfiguration(),
-            new EnvConfiguration(),
-            new PlusConfiguration(),
-            new JettyWebXmlConfiguration()
+                new WebXmlConfiguration(),
+                new AnnotationConfiguration(),
+                new WebInfConfiguration()
         });
+//        webapp.setConfigurations(new Configuration[]{
+//            new AnnotationConfiguration(),
+//            new WebInfConfiguration(),
+//            new WebXmlConfiguration(),
+//            new MetaInfConfiguration(),
+//            new FragmentConfiguration(),
+//            new EnvConfiguration(),
+//            new PlusConfiguration(),
+//            new JettyWebXmlConfiguration()
+//        });
 
         server.setHandler(webapp);
 
         server.start();
         //server.join();
 
-        Assertions.assertEquals(this.get("http://localhost:8080/hello"), "Hello Servlet!!");
-        Assertions.assertEquals(this.get("http://localhost:8080/text-file.txt"), "Hello file!!");
-        Assertions.assertEquals(this.get("http://localhost:8080/hello.jsp"), "Hello JSP!!");
-        Assertions.assertEquals(this.get("http://localhost:8080/el.jsp"), "8");
+        Assertions.assertEquals(this.get("http://localhost:8081/hello"), "Hello Servlet!!");
+        Assertions.assertEquals(this.get("http://localhost:8081/text-file.txt"), "Hello file!!");
+        Assertions.assertEquals(this.get("http://localhost:8081/hello.jsp"), "Hello JSP!!");
+        Assertions.assertEquals(this.get("http://localhost:8081/el.jsp"), "8");
 
         server.stop();
     }
