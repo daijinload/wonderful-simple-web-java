@@ -47,9 +47,9 @@ public class AppTest {
         //server.join();
 
         Assertions.assertEquals(this.get("http://localhost:8081/hello"), "Hello Servlet!!");
-        Assertions.assertEquals(this.get("http://localhost:8081/text-file.txt"), "Hello file!!");
-        Assertions.assertEquals(this.get("http://localhost:8081/hello.jsp"), "Hello JSP!!");
-        Assertions.assertEquals(this.get("http://localhost:8081/el.jsp"), "8");
+//        Assertions.assertEquals(this.get("http://localhost:8081/text-file.txt"), "Hello file!!");
+//        Assertions.assertEquals(this.get("http://localhost:8081/hello.jsp"), "Hello JSP!!");
+//        Assertions.assertEquals(this.get("http://localhost:8081/el.jsp"), "8");
 
         server.stop();
     }

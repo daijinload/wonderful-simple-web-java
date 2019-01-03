@@ -31,9 +31,20 @@ public class Main implements AutoCloseable, Runnable {
 
     public Main(Optional<URL> warFile) {
         this.server = new Server(8080);
-        String war = warFile.map(u -> MAIN_URL.toExternalForm()).orElse("src/main/webapp");
 
-        Configuration[] configurations = {
+        WebAppContext context = new WebAppContext();
+        context.setContextPath("/");
+        String war = warFile.map(u -> MAIN_URL.toExternalForm()).orElse("src/main/webapp");
+        System.out.println("*************************************************");
+        System.out.println(war);
+        context.setWar(war);
+//        context.setWar("src/main/webapp");
+//        if (!warFile.isPresent()) {
+//            context.getMetaData()
+//                    .setWebInfClassesDirs(
+//                            Arrays.asList(Resource.newResource(MAIN_URL)));
+//        }
+        context.setConfigurations(new Configuration[]{
                 new AnnotationConfiguration(),
                 new WebInfConfiguration(),
                 new WebXmlConfiguration(),
@@ -42,17 +53,7 @@ public class Main implements AutoCloseable, Runnable {
                 new EnvConfiguration(),
                 new PlusConfiguration(),
                 new JettyWebXmlConfiguration()
-        };
-
-        WebAppContext context = new WebAppContext();
-        context.setWar(war);
-        context.setContextPath("/");
-        if (!warFile.isPresent()) {
-            context.getMetaData()
-                    .setWebInfClassesDirs(
-                            Arrays.asList(Resource.newResource(MAIN_URL)));
-        }
-        context.setConfigurations(configurations);
+        });
         server.setHandler(context);
     }
 

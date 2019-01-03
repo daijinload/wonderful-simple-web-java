@@ -48,10 +48,14 @@ javadoc {
 
 test {
     classpath += configurations.jetty
+    useJUnitPlatform()
     testLogging {
         exceptionFormat 'full'
         events 'started', 'skipped', 'passed', 'failed'
     }
+//    reports {
+//        html.enabled = true
+//    }
 }
 
 idea {
