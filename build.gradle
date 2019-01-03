@@ -61,7 +61,7 @@ idea {
 
 war {
     manifest {
-        attributes 'Main-Class': 'app.sample.Main'
+        attributes 'Main-Class': 'com.gmail.daijinload.Main'
     }
     from {
         configurations.jetty.collect {

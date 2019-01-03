@@ -1,4 +1,4 @@
-package app.sample;
+package com.gmail.daijinload;
 
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.server.Server;

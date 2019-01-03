@@ -1,4 +1,4 @@
-package demo;
+package com.gmail.daijinload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,4 +1,4 @@
-package app.sample;
+package com.gmail.daijinload;
 
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.plus.webapp.EnvConfiguration;
@@ -20,14 +20,6 @@ public class Main implements AutoCloseable, Runnable {
 
     private static Server server = null;
     private static WebAppContext context = null;
-
-    public static void main(String[] args) throws Exception {
-        // web.xmlはダミーでおいてあるだけで、空っぽのファイル
-        Optional<URL> url = Optional.ofNullable(LOADER.getResource("WEB-INF/web.xml"));
-        try (Main main = new Main(url)) {
-            main.run();
-        }
-    }
 
     public Main(Optional<URL> warFile) {
         this.server = new Server(8080);
@@ -53,6 +45,14 @@ public class Main implements AutoCloseable, Runnable {
                             Arrays.asList(Resource.newResource(MAIN_URL)));
         }
         context.setConfigurations(configurations);
+    }
+
+    public static void main(String[] args) throws Exception {
+        // web.xmlはダミーでおいてあるだけで、空っぽのファイル
+        Optional<URL> url = Optional.ofNullable(LOADER.getResource("WEB-INF/web.xml"));
+        try (Main main = new Main(url)) {
+            main.run();
+        }
     }
 
     @Override
