@@ -1,25 +1,38 @@
-apply plugin: 'war'
 apply plugin: 'idea'
+apply plugin: 'war'
+
+ext {
+    jdkLevel = 1.8
+    encoding = 'UTF-8'
+}
+
+version = '0.1'
 
 repositories {
     mavenCentral()
 }
 
+configurations {
+    jetty
+}
+
 dependencies {
-    providedCompile 'org.eclipse.jetty:jetty-webapp:9.4.14.v20181114'
-    providedCompile 'org.eclipse.jetty:jetty-annotations:9.4.14.v20181114'
+    jetty 'org.eclipse.jetty:jetty-runner:9.4.14.v20181114'
 
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.1'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
 }
 
+//compileJava.options.encoding = "UTF-8"
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = jdkLevel
+    targetCompatibility = jdkLevel
+    options.encoding = encoding
+    classpath += configurations.jetty
+}
+
 sourceSets {
-    main {
-        //if you truly want to override the defaults:
-        output.resourcesDir = file('src/main/webapp/WEB-INF/resources')
-        // Compiled Java classes should use this directory
-        java.outputDir = file('src/main/webapp/WEB-INF/classes')
-    }
     test {
         //if you truly want to override the defaults:
         output.resourcesDir = file('src/test/webapp/WEB-INF/resources')
@@ -28,18 +41,36 @@ sourceSets {
     }
 }
 
-war {
-    baseName = 'jetty-sample'
-
-    from {
-        configurations.providedCompile.collect {
-            it.isDirectory() ? it : project.zipTree(it)
-        }
-    }
-    from fileTree(dir: 'build/classes/java/main', include: '**/Main.class')
-
-    manifest.attributes('Main-Class': 'Main')
+javadoc {
+    options.encoding = encoding
+    classpath += configurations.jetty
 }
 
-//mainClassName = 'demo.App'
+test {
+    classpath += configurations.jetty
+}
 
+idea {
+    project {
+        languageLevel = jdkLevel
+    }
+    module {
+        scopes.COMPILE.plus += [configurations.jetty]
+    }
+}
+
+war {
+    manifest {
+        attributes 'Main-Class': 'app.sample.Main'
+    }
+    from {
+        configurations.jetty.collect {
+            it.isDirectory()? it: zipTree(it)
+        }
+    } {
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
+    from fileTree(dir: 'build/classes/java/main', include: '**/Main.class')
+}
